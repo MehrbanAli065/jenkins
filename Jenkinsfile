@@ -3,7 +3,7 @@ pipeline {
     
    tools {
         // Install Python
-        python 'Python3'
+        jenkins.plugins.shiningpanda.tools.PythonInstallation('Python3')
     }
     
     stages {
