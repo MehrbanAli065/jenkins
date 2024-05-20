@@ -1,15 +1,16 @@
 pipeline {
     agent any
     
-   tools {
-        // Install Python
-        jenkins.plugins.shiningpanda.tools.PythonInstallation('Python3')
+   environment {
+        PYTHON_HOME = tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
+        PATH = "${env.PYTHON_HOME}/bin:${env.PATH}"
     }
     
     stages {
         stage('Build') {
             steps {
                 echo 'Application build stage...' 
+                sh 'python --version'
                 sh 'python even.py'
         }
        }
