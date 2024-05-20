@@ -1,15 +1,16 @@
 pipeline {
     agent any
     
-    tools {
-        python 'Python 3.9.6' 
+   environment {
+        // Define the installation directory for Python
+        PYTHON_HOME = tool name: 'Python 3.9.6', type: 'hudson.plugins.python.PythonInstallation', label: ''
     }
     
     stages {
         stage('Build') {
             steps {
                 echo 'Application build stage...' 
-                sh 'python even.py'
+                sh "${PYTHON_HOME}/bin/python even.py"'
         }
        }
         stage('Test') {
