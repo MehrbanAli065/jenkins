@@ -1,26 +1,20 @@
 pipeline {
     agent any
-    
-    tools {
-        jdk 'JDK11' 
-    }
-    
     stages {
         stage('Build') {
             steps {
-                echo 'Application build stage...' 
-                sh 'javac program.java'
+                echo 'Application build stage...'
+            }
         }
-       }
         stage('Test') {
             steps {
-                echo 'Application test stage' 
-        }
+                echo 'Application test stage'
+            }
         }
         stage('Run') {
             steps {
-                echo 'Application run stage' 
-                sh 'java program'
+                echo 'Application run stage'
+                sh 'python even.py'
             }
         }
     }
