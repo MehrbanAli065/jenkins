@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Application build stage...' 
-                sh 'javac prog.java'
+                sh 'javac program.java'
         }
        }
         stage('Test') {
@@ -20,7 +20,7 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Application run stage' 
-                sh 'java prog'
+                sh 'java program'
             }
         }
     }
