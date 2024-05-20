@@ -1,24 +1,26 @@
 pipeline {
     agent any
+    
+    tools {
+        jdk 'JDK11' 
+    }
+    
     stages {
         stage('Build') {
             steps {
-                echo 'Allication build stage...' 
-            }
+                echo 'Application build stage...' 
+                sh 'javac prog.java'
         }
+       }
         stage('Test') {
             steps {
-                echo 'Allication test stage' 
-            }
+                echo 'Application test stage' 
+        }
         }
         stage('Run') {
             steps {
-                echo 'Allication run stage'
-                
-                // Adding a step to print Python code
-                sh 'echo "print(\'Hello from Python\')" > hello.py'
-                sh 'python even.py'
-
+                echo 'Application run stage' 
+                sh 'java prog'
             }
         }
     }
