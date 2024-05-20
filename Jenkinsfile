@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Application build stage...' 
-                sh "${PYTHON_HOME}/bin/python even.py"'
+                sh "${PYTHON_HOME}/bin/python even.py"
         }
        }
         stage('Test') {
