@@ -17,7 +17,7 @@ pipeline {
                 
                 // Adding a step to print Python code
                 sh 'echo "print(\'Hello from Python\')" > hello.py'
-                sh '/usr/bin/python hello.py'
+                sh '/full/path/to/python /path/to/hello.py'
 
             }
         }
