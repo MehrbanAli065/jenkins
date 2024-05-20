@@ -3,7 +3,7 @@ pipeline {
     
    tools {
         // Install Python
-        python 'PYTHON3'
+        python 'Python3'
     }
     
     stages {
