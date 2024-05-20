@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        python 'Python 2.7.18' 
+        python 'Python 3.9.6' 
     }
     
     stages {
