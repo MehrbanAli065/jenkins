@@ -22,6 +22,7 @@ def main():
     even_numbers = generate_even_numbers(limit)
     
     # Print the generated even numbers
+    print("hello python 21-may-2024")
     print("Even numbers from 0 to {}:".format(limit))
     for num in even_numbers:
         print(num)
