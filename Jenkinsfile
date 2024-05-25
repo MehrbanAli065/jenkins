@@ -1,46 +1,29 @@
 pipeline {
-    agent any
-
+    agent any 
     environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-credentials-id')
+        GOOGLE_CREDENTIALS = credentials('gcp-credentials-id') // Ensure 'your-credential-id' is the correct ID for your credentials
     }
-
     stages {
-        stage('Pull Code') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/MehrbanAli065/jenkins.git'
+                checkout scm
             }
         }
-        stage('Build Project') {
+        stage('Build') {
             steps {
-                echo 'Application build stage...' 
-                sh 'python --version'
-                sh 'python even.py'
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                echo 'Application build stage...' 
-            }
-        }
-        stage('Package Application') {
-            steps {
-               echo 'Application build stage...' 
-            }
-        }
-        stage('Deploy Application') {
-            steps {
-                withCredentials([file(credentialsId: 'gcp-credentials-id', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                    sh 'gcloud compute instances create my-instance --zone=us-central1-a --image-family=debian-9 --image-project=debian-cloud'
+                script {
+                    withCredentials([file(credentialsId: 'gcp-credentials-id', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        // Your build steps here, e.g., running a script
+                        sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
+                        // other GCP related commands
+                    }
                 }
             }
         }
     }
-
     post {
-        success {
-            echo 'Pipeline completed successfully!'
+        always {
+            echo 'Pipeline completed!'
         }
         failure {
             echo 'Pipeline failed!'
