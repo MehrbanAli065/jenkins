@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-credentials-id')  // Ensure this ID matches the one in Jenkins
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-credentials-id')
     }
 
     stages {
