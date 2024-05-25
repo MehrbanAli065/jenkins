@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                git 'https://github.com/your-repository-url.git'
+                git 'https://github.com/MehrbanAli065/jenkins.git'
             }
         }
         stage('Build Project') {
