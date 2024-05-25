@@ -1,31 +1,26 @@
 pipeline {
     agent any
     
-    environment {
-        PYTHON_HOME = tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
-        PATH = "${env.PYTHON_HOME}/bin:${env.PATH}"
+    tools {
+        jdk 'JDK11' 
     }
     
     stages {
         stage('Build') {
             steps {
                 echo 'Application build stage...' 
-                sh 'python --version'
-                sh 'python even.py'
-            }
+                sh 'javac program.java'
         }
+       }
         stage('Test') {
             steps {
                 echo 'Application test stage' 
-            }
+        }
         }
         stage('Run') {
             steps {
                 echo 'Application run stage' 
-                echo "This is my IP"
-                sh 'curl -s ifconfig.co'
-                echo "This is my hostname"
-                sh 'hostname -f'
+                sh 'java program'
             }
         }
     }
