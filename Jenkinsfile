@@ -1,33 +1,51 @@
 pipeline {
     agent any
-    
-   environment {
-        PYTHON_HOME = tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
-        PATH = "${env.PYTHON_HOME}/bin:${env.PATH}"
+
+    environment {
+        GCP_CREDENTIALS = credentials('gcp-credentials-id')
+        
     }
-    
+
     stages {
-        stage('Build') {
+        stage('Pull Code') {
             steps {
-                echo 'Application build stage...' 
-                sh 'python --version'
-                sh 'python even.py'
-        }
-       }
-        stage('Test') {
-            steps {
-                echo 'Application test stage' 
-        }
-        }
-        stage('Run') {
-            steps {
-                echo 'Application run stage' 
-                echo "This is my IP"
-                sh 'curl -s ifconfig.co'
-                echo "This is my hostname"
-                sh 'hostname -f'
-                
+                git 'https://github.com/your-repository-url.git'
             }
+        }
+        stage('Build Project') {
+            steps {
+                sh './build.sh'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh './test.sh'
+            }
+        }
+        stage('Package Application') {
+            steps {
+                sh './package.sh'
+            }
+        }
+        stage('Deploy Application') {
+            steps {
+                withCredentials([file(credentialsId: 'gcp-credentials-id', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
+                    sh 'gcloud compute instances create my-instance --zone=us-central1-a --image-family=debian-9 --image-project=debian-cloud'
+                }
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-id']]) {
+                    sh 'aws deploy create-deployment --application-name my-app --deployment-group-name my-deployment-group --s3-location bucket=my-bucket,bundleType=zip,key=my-key'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
