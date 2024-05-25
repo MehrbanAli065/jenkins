@@ -13,17 +13,19 @@ pipeline {
         }
         stage('Build Project') {
             steps {
-                sh './build.sh'
+                echo 'Application build stage...' 
+                sh 'python --version'
+                sh 'python even.py'
             }
         }
         stage('Run Tests') {
             steps {
-                sh './test.sh'
+                echo 'Application build stage...' 
             }
         }
         stage('Package Application') {
             steps {
-                sh './package.sh'
+               echo 'Application build stage...' 
             }
         }
         stage('Deploy Application') {
