@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GCP_CREDENTIALS = credentials('gcp-credentials-id')
-        
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-credentials-id')  // Ensure this ID matches the one in Jenkins
     }
 
     stages {
@@ -14,19 +13,17 @@ pipeline {
         }
         stage('Build Project') {
             steps {
-                echo 'Application build stage...' 
-                sh 'python --version'
-                sh 'python even.py'
+                sh './build.sh'
             }
         }
         stage('Run Tests') {
             steps {
-                echo 'Application test stage'
+                sh './test.sh'
             }
         }
         stage('Package Application') {
             steps {
-                echo 'Application run stage' 
+                sh './package.sh'
             }
         }
         stage('Deploy Application') {
@@ -34,9 +31,6 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-credentials-id', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
                     sh 'gcloud compute instances create my-instance --zone=us-central1-a --image-family=debian-9 --image-project=debian-cloud'
-                }
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-id']]) {
-                    sh 'aws deploy create-deployment --application-name my-app --deployment-group-name my-deployment-group --s3-location bucket=my-bucket,bundleType=zip,key=my-key'
                 }
             }
         }
