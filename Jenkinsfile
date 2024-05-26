@@ -9,8 +9,8 @@ pipeline {
         stage('Authenticate') {
             steps {
                 script {
-                    def credentialsId = 'YOUR_CREDENTIALS_ID'
-                    withCredentials([file(credentialsId: credentialsId, variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    withCredentials([file(credentialsId: 'my-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        sh 'echo $GOOGLE_APPLICATION_CREDENTIALS'
                         sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
                     }
                 }
@@ -20,6 +20,7 @@ pipeline {
         stage('List Instances') {
             steps {
                 sh 'gcloud compute instances list'
+                echo 'success'
             }
         }
     }
