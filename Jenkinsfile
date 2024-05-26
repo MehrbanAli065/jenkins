@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/MehrbanAli065/jenkins.git' // Replace with your repository URL
+                echo 'dsadasf' // Replace with your repository URL
             }
         }
 
