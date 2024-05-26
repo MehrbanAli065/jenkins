@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        GOOGLE_CREDENTIALS = credentials('my-key') // Ensure 'your-credential-id' is the correct ID for your credentials
+        GOOGLE_CREDENTIALS = credentials('my-key') // Ensure 'my-key' is the correct ID for your credentials
     }
     stages {
         stage('Checkout') {
