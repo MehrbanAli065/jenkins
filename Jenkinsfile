@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('YOUR_CREDENTIALS_ID')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('my-key')
     }
 
     stages {
