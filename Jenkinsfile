@@ -1,32 +1,33 @@
 pipeline {
-    agent any 
-    environment {
-        GOOGLE_CREDENTIALS = credentials('my-key') // Ensure 'my-key' is the correct ID for your credentials
+    agent any
+    
+   environment {
+        PYTHON_HOME = tool name: 'Python3', type: 'jenkins.plugins.shiningpanda.tools.PythonInstallation'
+        PATH = "${env.PYTHON_HOME}/bin:${env.PATH}"
     }
+    
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build') {
             steps {
-                script {
-                    withCredentials([file(credentialsId: 'my-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                        // Your build steps here, e.g., running a script
-                        sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                        // other GCP related commands
-                    }
-                }
+                echo 'Application build stage...' 
+                sh 'python --version'
+                sh 'python even.py'
+        }
+       }
+        stage('Test') {
+            steps {
+                echo 'Application test stage' 
+        }
+        }
+        stage('Run') {
+            steps {
+                echo 'Application run stage' 
+                echo "This is my IP"
+                sh 'curl -s ifconfig.co'
+                echo "This is my hostname"
+                sh 'hostname -f'
+                
             }
-        }
-    }
-    post {
-        always {
-            echo 'Pipeline completed!'
-        }
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }
