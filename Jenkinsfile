@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        GOOGLE_CREDENTIALS = credentials('gcp-credentials-id') // Ensure 'your-credential-id' is the correct ID for your credentials
+        GOOGLE_CREDENTIALS = credentials('my-key') // Ensure 'your-credential-id' is the correct ID for your credentials
     }
     stages {
         stage('Checkout') {
@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'gcp-credentials-id', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    withCredentials([file(credentialsId: 'my-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                         // Your build steps here, e.g., running a script
                         sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
                         // other GCP related commands
