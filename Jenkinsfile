@@ -15,6 +15,7 @@ pipeline {
         stage('List Instances') {
             steps {
                 sh 'gcloud compute instances list'
+                echo 'success'
             }
         }
     }
