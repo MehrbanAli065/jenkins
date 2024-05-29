@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'dsadasf' // Replace with your repository URL
+                echo 'Checkout stage' 
             }
         }
 
@@ -31,6 +31,7 @@ pipeline {
     post {
         success {
             echo 'Successfully deployed!'
+            echo 'running on server 34.121.204.22.....'
         }
     }
 }
