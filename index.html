@@ -3,144 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication Form</title>
+    <title>Car Showroom</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background: url('https://source.unsplash.com/featured/?technology,secure') no-repeat center center fixed;
+            background: url('https://source.unsplash.com/featured/?cars,showroom') no-repeat center center fixed;
             background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
-        .form-content {
-            background-color: #e8eaf6;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-            max-width: 600px;
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .tab {
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #ccc;
+        }
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border-top: none;
+        }
+        .car-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .car-item {
+            background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: auto;
+            margin: 10px;
+            overflow: hidden;
+            width: 30%;
+            max-width: 300px;
+            text-align: center;
+            padding: 10px;
         }
-        .container {
-            padding: 16px;
-        }
-        input[type=text], input[type=password] {
+        .car-item img {
             width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            border-bottom: 1px solid #ddd;
         }
-        button {
-            background-color: #5c6bc0;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.3s ease;
+        .car-item h3 {
+            margin: 10px 0;
         }
-        button:hover {
-            opacity: 0.8;
-        }
-        .cancelbtn, .signupbtn {
-            float: left;
-            width: 50%;
-        }
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-        hr {
-            border: 1px solid #f1f1f1;
-            margin-bottom: 25px;
+        .car-item p {
+            margin: 10px 0;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="form-content">
-        <div class="container">
-            <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account.</p>
-            <hr>
-            <label for="user"><b>User Name</b></label>
-            <input type="text" placeholder="Enter user name" id="user" required>
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" id="email" required>
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" id="psw" required>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
-            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-            <div class="clearfix">
-                <button type="button" onclick="window.location='/LogIn';" class="cancelbtn">Cancel</button>
-                <button type="button" id="signup" class="signupbtn">Sign Up</button>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'SUVs')">SUVs</button>
+        <button class="tablinks" onclick="openTab(event, 'Sedans')">Sedans</button>
+        <button class="tablinks" onclick="openTab(event, 'Trucks')">Trucks</button>
+    </div>
+
+    <div id="SUVs" class="tabcontent">
+        <h2>SUVs</h2>
+        <div class="car-list">
+            <div class="car-item">
+                <img src="https://source.unsplash.com/featured/?suv" alt="SUV">
+                <h3>Model SUV A</h3>
+                <p>Price: $40,000</p>
             </div>
-            <div>
-                <p>Already have an account? <a href="/LogIn">Log in here</a></p>
+            <div class="car-item">
+                <img src="https://source.unsplash.com/featured/?suv" alt="SUV">
+                <h3>Model SUV B</h3>
+                <p>Price: $50,000</p>
             </div>
         </div>
     </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+    <div id="Sedans" class="tabcontent">
+        <h2>Sedans</h2>
+        <div class="car-list">
+            <div class="car-item">
+                <img src="https://source.unsplash.com/featured/?sedan" alt="Sedan">
+                <h3>Model Sedan A</h3>
+                <p>Price: $30,000</p>
+            </div>
+            <div class="car-item">
+                <img src="https://source.unsplash.com/featured/?sedan" alt="Sedan">
+                <h3>Model Sedan B</h3>
+                <p>Price: $35,000</p>
+            </div>
+        </div>
+    </div>
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAWxkwEHZ5IHdpERk2C5BHTNgFm_K4WPEU",
-        authDomain: "detection-app-56a4e.firebaseapp.com",
-        databaseURL: "https://detection-app-56a4e-default-rtdb.firebaseio.com",
-        projectId: "detection-app-56a4e",
-        storageBucket: "detection-app-56a4e.appspot.com",
-        messagingSenderId: "184904842460",
-        appId: "1:184904842460:web:991c34e3940f6d07b68819"
-    };
+    <div id="Trucks" class="tabcontent">
+        <h2>Trucks</h2>
+        <div class="car-list">
+            <div class="car-item">
+                <img src="https://source.unsplash.com/featured/?truck" alt="Truck">
+                <h3>Model Truck A</h3>
+                <p>Price: $60,000</p>
+            </div>
+            <div class="car-item">
+                <img src="https://source.unsplash.com/featured/?truck" alt="Truck">
+                <h3>Model Truck B</h3>
+                <p>Price: $65,000</p>
+            </div>
+        </div>
+    </div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const database = getDatabase(app);
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
 
-    document.getElementById('signup').addEventListener('click', () => {
-        const userName = document.getElementById('user').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('psw').value;
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Handle user and user data storage
-                const user = userCredential.user;
-                const uid = user.uid;  // Get UID for newly created user
-
-                // Setting user data in Firebase Realtime Database
-                set(ref(database, 'users/' + uid), {
-                    username: userName,
-                    email: email
-                }).then(() => {
-                    alert('Signup successfully');
-                    window.location.href = '/LogIn';  // Redirect to login page
-                }).catch((error) => {
-                    alert('Failed to store user data:', error);
-
-                });
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(errorMessage);
-            });
-    });
-</script>
-
-
+        // Default to open first tab
+        document.getElementsByClassName('tablinks')[0].click();
+    </script>
 </body>
 </html>
